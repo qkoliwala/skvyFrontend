@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shark_valley/dtos/initLogResponse.dto.dart';
 import 'package:shark_valley/dtos/patrolTimeRequest.dto.dart';
+import 'package:shark_valley/initiLog.dart';
 import 'package:shark_valley/services/logProvider.dart';
 import 'package:shark_valley/services/patrolLog.service.dart';
+import 'package:shark_valley/services/initLog.service.dart';
 import 'package:shark_valley/vault.dart';
 
 import 'dtos/patrolLogLast10.dto.dart';
@@ -18,12 +21,14 @@ class CompletedFormPage extends ConsumerStatefulWidget {
 
 class _CompletedFormState extends ConsumerState<CompletedFormPage> {
   late Future<PatrolLogLast10Response> patrolLogsResponse;
+  late Future<InitLogResponse> intiLog;
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     patrolLogsResponse = getPatrolLogs();
+    getInitLog();
   }
 
   @override
