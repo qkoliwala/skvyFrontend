@@ -90,8 +90,9 @@ class _LoginPageState extends State<LoginPage> {
                             loginRequest.email = _usernameController.text;
                             loginRequest.password = _passwordController.text;
                             await login(loginRequest);
+
                             if (Vault.userId != null) {
-                              context.go('/entryPage');
+                              context.go('/createLog');
                             } else {
                               var snackbar = SnackBar(
                                 content: Text('Incorrect Email or Password'),
