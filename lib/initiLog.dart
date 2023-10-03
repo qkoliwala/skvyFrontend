@@ -65,14 +65,14 @@ class _InitLog extends State<InitLog> {
               child: Text('No'),
             ),
             SizedBox(height: 20), // Add spacing
-            Text(
-              'You selected: $answer',
-              style: TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Log Initialization: $isLogInitialized',
-              style: TextStyle(fontSize: 16),
-            ),
+            // Text(
+            //   'You selected: $answer',
+            //   style: TextStyle(fontSize: 16),
+            // ),
+            // Text(
+            //   'Log Initialization: $isLogInitialized',
+            //   style: TextStyle(fontSize: 16),
+            // ),
           ],
         ),
       ),

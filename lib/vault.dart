@@ -7,6 +7,7 @@ class Vault {
   // check for initialized log
   static bool isLogInitialized = false;
   static bool wasLogCreated = false;
+  static bool isCreator = false;
 
   static const String assetsImagePath = 'assets/images/';
 

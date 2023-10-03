@@ -49,6 +49,7 @@ Future<InitLogResponse?> getInitLog() async {
       if (initLogResponse.isCreated == true) {
         // so.. log is already created
         Vault.isLogInitialized = true;
+        Vault.isCreator = initLogResponse.isCreator;
       }
 
       return initLogResponse;
