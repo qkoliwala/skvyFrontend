@@ -15,12 +15,14 @@ class _SignUpPage extends State<SignUpPage> {
   bool passwordsCompleteRequirements = false;
   final minimalLength = 10;
   final TextEditingController userName = TextEditingController();
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
   final TextEditingController password1 = TextEditingController();
   final TextEditingController password2 = TextEditingController();
 
   String incorrectPass = 'Password does not meet the requiremets!';
   String notMatchingPass = 'The passwords do not match!';
-  
+
   /// Checks and sets the scate of the password.
   void passwordIsCorrect(String password) {
     bool containsLowerCase = false;
@@ -59,6 +61,28 @@ class _SignUpPage extends State<SignUpPage> {
     } else {
       passwordsMatch = false;
     }
+  }
+
+  InputDecoration textBox(String hint) {
+    return InputDecoration(
+      hintText: hint,
+      prefixIcon: const Icon(Icons.abc),
+      prefixIconColor: Colors.black,
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.grey,
+          width: 2,
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.grey,
+          width: 2,
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+    );
   }
 
   /// Prints an error message at the bottom of the screen.
@@ -107,6 +131,28 @@ class _SignUpPage extends State<SignUpPage> {
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              // User's First Name
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: firstName,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+                decoration: textBox("Enter First Name"),
+              ),
+            ),
+            Padding(
+              // User's Last Name
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: lastName,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+                decoration: textBox("Enter Last Name"),
               ),
             ),
             Padding(
