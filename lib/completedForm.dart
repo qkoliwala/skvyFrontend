@@ -21,14 +21,14 @@ class CompletedFormPage extends ConsumerStatefulWidget {
 
 class _CompletedFormState extends ConsumerState<CompletedFormPage> {
   late Future<PatrolLogLast10Response> patrolLogsResponse;
-  late Future<InitLogResponse> intiLog;
+  late Future<InitLogResponse> intiLogs;
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     patrolLogsResponse = getPatrolLogs();
-    getInitLog();
+    intiLogs = getInitLog();
   }
 
   @override
@@ -64,41 +64,58 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                       subtitle:
                           Text('Your log have been submitted successfully'),
                     ),
-                    // adding visibility to buttons so they show based on criteria
-                    Visibility(
-                      visible: Vault.isLogInitialized,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Visibility(
-                            visible: Vault.isCreator,
-                            child: TextButton(
-                              child: const Text('New Patrol Log'),
-                              onPressed: () {
-                                ref.read(patrolLogProvider.notifier).reset();
-                                context.go('/logTimesPage');
-                              },
-                            ),
-                            //const SizedBox(width: 8),
-                          ),
-                          Visibility(
-                            visible: true,
-                            child: TextButton(
-                              child: const Text('Start Patrol'),
-                              onPressed: () {/* ... */},
-                            ),
-                          ),
-                          Visibility(
-                            visible: true,
-                            child: TextButton(
-                              child: const Text('End Patrol'),
-                              onPressed: () {/* ... */},
-                            ),
-                            //const SizedBox(width: 8),
-                          ),
-                        ],
-                      ),
-                    ),
+                    FutureBuilder<InitLogResponse>(
+                        future: intiLogs,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var isCreator = snapshot.data!.isCreator!;
+
+                            var isCreated = snapshot.data!.isCreated!;
+
+                            var startedPatrol = false;
+                            var endedPatrol = false;
+
+                            // adding visibility to buttons so they show based on criteria
+                            return Visibility(
+                              visible: isCreated,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Visibility(
+                                    visible: isCreator,
+                                    child: TextButton(
+                                      child: const Text('New Patrol Log'),
+                                      onPressed: () {
+                                        ref
+                                            .read(patrolLogProvider.notifier)
+                                            .reset();
+                                        context.go('/logTimesPage');
+                                      },
+                                    ),
+                                    //const SizedBox(width: 8),
+                                  ),
+                                  Visibility(
+                                    visible: true,
+                                    child: TextButton(
+                                      child: const Text('Start Patrol'),
+                                      onPressed: () {/* ... */},
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: true,
+                                    child: TextButton(
+                                      child: const Text('End Patrol'),
+                                      onPressed: () {/* ... */},
+                                    ),
+                                    //const SizedBox(width: 8),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return Text('${snapshot.error}');
+                          }
+                        }),
                     FutureBuilder<PatrolLogLast10Response>(
                       future: patrolLogsResponse,
                       builder: (context, snapshot) {

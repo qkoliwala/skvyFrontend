@@ -93,9 +93,6 @@ class _LoginPageState extends State<LoginPage> {
                             await login(loginRequest);
 
                             if (Vault.userId != null) {
-                              // add initialized log here
-                              await getInitLog();
-
                               if (Vault.isLogInitialized) {
                                 context.go('/completedFormPage');
                               } else
