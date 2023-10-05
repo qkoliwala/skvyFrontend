@@ -112,9 +112,10 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                                 ],
                               ),
                             );
-                          } else {
+                          } else if (snapshot.hasError) {
                             return Text('${snapshot.error}');
                           }
+                          return const CircularProgressIndicator();
                         }),
                     FutureBuilder<PatrolLogLast10Response>(
                       future: patrolLogsResponse,
