@@ -1,5 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:shark_valley/dtos/signUpRequest.dto.dart';
+import 'package:shark_valley/services/signUpService.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -20,7 +22,7 @@ class _SignUpPage extends State<SignUpPage> {
 
   String incorrectPass = 'Password does not meet the requiremets!';
   String notMatchingPass = 'The passwords do not match!';
-  
+
   /// Checks and sets the scate of the password.
   void passwordIsCorrect(String password) {
     bool containsLowerCase = false;
@@ -208,7 +210,7 @@ class _SignUpPage extends State<SignUpPage> {
               // Submit button here -------------------------------------
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   passwordIsCorrect(password1.text);
                   passwordsDoMatch(password1.text, password2.text);
                   if (!passwordsCompleteRequirements) {
@@ -218,6 +220,11 @@ class _SignUpPage extends State<SignUpPage> {
                     if (!passwordsMatch) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(errorMessage(notMatchingPass));
+                    } else {
+                      SignUpRequest signUpRequest = SignUpRequest();
+                      signUpRequest.email = userName.text;
+                      signUpRequest.password = password2.text;
+                      await signUp(signUpRequest, context);
                     }
                   }
                 },
