@@ -4,7 +4,6 @@ class Vault {
   static String? userId;
   static String? userName;
 
-<<<<<<< HEAD
   // check for initialized log
   static bool isLogInitialized = false;
   static bool wasLogCreated = false;
