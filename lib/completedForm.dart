@@ -4,11 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shark_valley/dtos/initLogResponse.dto.dart';
 import 'package:shark_valley/dtos/patrolTimeRequest.dto.dart';
+import 'package:shark_valley/dtos/startTimerRequest.dto.dart';
 import 'package:shark_valley/initiLog.dart';
 import 'package:shark_valley/services/logProvider.dart';
 import 'package:shark_valley/services/patrolLog.service.dart';
 import 'package:shark_valley/services/initLog.service.dart';
+import 'package:shark_valley/services/userTimer.service.dart';
 import 'package:shark_valley/vault.dart';
+import 'package:intl/intl.dart';
 
 import 'dtos/patrolLogLast10.dto.dart';
 
@@ -23,6 +26,9 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
   late Future<PatrolLogLast10Response> patrolLogsResponse;
   late Future<InitLogResponse> intiLogs;
   final _formKey = GlobalKey<FormState>();
+
+  var startedPatrol = false;
+  var endedPatrol = false;
 
   @override
   void initState() {
@@ -69,11 +75,28 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             var isCreator = snapshot.data!.isCreator;
-
                             var isCreated = snapshot.data!.isCreated!;
 
-                            var startedPatrol = false;
-                            var endedPatrol = false;
+                            if (!isCreated) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Visibility(
+                                    visible: true,
+                                    child: TextButton(
+                                      child: const Text('Create New Log'),
+                                      onPressed: () {
+                                        ref
+                                            .read(patrolLogProvider.notifier)
+                                            .reset();
+                                        context.go('/createLog');
+                                      },
+                                    ),
+                                    //const SizedBox(width: 8),
+                                  ),
+                                ],
+                              );
+                            }
 
                             // adding visibility to buttons so they show based on criteria
                             return Visibility(
@@ -84,7 +107,7 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                                   Visibility(
                                     visible: isCreator,
                                     child: TextButton(
-                                      child: const Text('New Patrol Log'),
+                                      child: const Text('Submit Log'),
                                       onPressed: () {
                                         ref
                                             .read(patrolLogProvider.notifier)
@@ -95,17 +118,38 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                                     //const SizedBox(width: 8),
                                   ),
                                   Visibility(
-                                    visible: true,
+                                    visible: !startedPatrol,
                                     child: TextButton(
                                       child: const Text('Start Patrol'),
-                                      onPressed: () {/* ... */},
+                                      onPressed: () {
+                                        StartTimer startTimerRequest =
+                                            StartTimer();
+
+                                        final now = DateTime.now();
+                                        String formatter =
+                                            DateFormat('yyyy-MM-ddTHH:mm:ss')
+                                                .format(now);
+
+                                        startTimerRequest.email = Vault.email;
+                                        startTimerRequest.time = formatter;
+
+                                        startTimer(startTimerRequest);
+
+                                        setState(() {
+                                          startedPatrol = true;
+                                        });
+                                      },
                                     ),
                                   ),
                                   Visibility(
-                                    visible: true,
+                                    visible: startedPatrol && !endedPatrol,
                                     child: TextButton(
                                       child: const Text('End Patrol'),
-                                      onPressed: () {/* ... */},
+                                      onPressed: () {
+                                        setState(() {
+                                          endedPatrol = true;
+                                        });
+                                      },
                                     ),
                                     //const SizedBox(width: 8),
                                   ),

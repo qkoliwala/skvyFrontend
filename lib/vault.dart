@@ -3,6 +3,7 @@ import 'dtos/patrolLogLast10.dto.dart';
 class Vault {
   static String? userId;
   static String? userName;
+  static String? email;
 
   // check for initialized log
   static bool isLogInitialized = false;
@@ -19,6 +20,9 @@ class Vault {
 
   static const String initLogPath = '$apiBase/patrolLog/initPatrolLog';
   static const String getInitLogPath = '$apiBase/patrolLog/getInitLog';
+
+  static const String startPatrol = '$apiBase/UserTimer/startTime';
+  static const String endPatrol = '$apiBase/UserTimer/endTimer';
 
   // static const String assetsImagePath = 'assets/images/';
 
