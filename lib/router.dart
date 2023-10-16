@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shark_valley/completedForm.dart';
 import 'package:shark_valley/contactWithVisitor.dart';
-import 'package:shark_valley/initiLog.dart';
+import 'package:shark_valley/entry_page.dart';
 import 'package:shark_valley/incidentsReportPage.dart';
 import 'package:shark_valley/logTimes.dart';
 import 'package:shark_valley/newIncident.dart';
+import 'package:shark_valley/normal_user.dart';
 import 'package:shark_valley/notes.dart';
+import 'package:shark_valley/signUpPage.dart';
 import 'package:shark_valley/signatures.dart';
 import 'package:shark_valley/suppliesExpended.dart';
 import 'package:shark_valley/weather.dart';
@@ -97,6 +99,16 @@ final routes = [
     name: 'completedFormPage',
     path: 'completedFormPage',
     builder: (context) => CompletedFormPage(),
+  ),
+  CustomRoute(
+    name: 'signUpPage',
+    path: 'signUpPage',
+    builder: (context) => const SignUpPage(),
+  ),
+  CustomRoute(
+    name: 'entryPage',
+    path: 'entryPage',
+    builder: (context) => const EntryPage(),
   ),
   CustomRoute(
     name: 'createLog',
