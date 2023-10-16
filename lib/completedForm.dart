@@ -29,6 +29,7 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
 
   var startedPatrol = false;
   var endedPatrol = false;
+  var showSubmit = false;
 
   @override
   void initState() {
@@ -73,39 +74,19 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                     FutureBuilder<InitLogResponse>(
                         future: intiLogs,
                         builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var isCreator = snapshot.data!.isCreator;
-                            var isCreated = snapshot.data!.isCreated!;
 
-                            if (!isCreated) {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Visibility(
-                                    visible: true,
-                                    child: TextButton(
-                                      child: const Text('Create New Log'),
-                                      onPressed: () {
-                                        ref
-                                            .read(patrolLogProvider.notifier)
-                                            .reset();
-                                        context.go('/createLog');
-                                      },
-                                    ),
-                                    //const SizedBox(width: 8),
-                                  ),
-                                ],
-                              );
-                            }
-
+                        if (snapshot.hasData) {
+                          
+                          print(snapshot.data!.isCreated!);
                             // adding visibility to buttons so they show based on criteria
+                            if(snapshot.data!.isCreated!){
                             return Visibility(
-                              visible: isCreated,
+                              visible: snapshot.data!.isCreated!,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   Visibility(
-                                    visible: isCreator,
+                                    visible: snapshot.data!.isCreated!,
                                     child: TextButton(
                                       child: const Text('Submit Log'),
                                       onPressed: () {
@@ -155,7 +136,35 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                                   ),
                                 ],
                               ),
-                            );
+                            ); 
+                            }
+
+                          
+                            var isCreator = snapshot.data!.isCreator;
+
+                            if (!snapshot.data!.isCreated!) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Visibility(
+                                    visible: true,
+                                    child: TextButton(
+                                      child: const Text('Create New Log'),
+                                      onPressed: () {
+                                        ref
+                                            .read(patrolLogProvider.notifier)
+                                            .reset();
+                                        context.go('/createLog');
+                                      },
+                                    ),
+                                    //const SizedBox(width: 8),
+                                  ),
+                                ],
+                              );
+                            }
+
+
+
                           } else if (snapshot.hasError) {
                             return Text('${snapshot.error}');
                           }
