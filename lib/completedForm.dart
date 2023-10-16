@@ -68,7 +68,7 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                         future: intiLogs,
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            var isCreator = snapshot.data!.isCreator!;
+                            var isCreator = snapshot.data!.isCreator;
 
                             var isCreated = snapshot.data!.isCreated!;
 
@@ -115,6 +115,8 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                           } else if (snapshot.hasError) {
                             return Text('${snapshot.error}');
                           }
+
+                          // Return circular spinner if data is not loaded
                           return const CircularProgressIndicator();
                         }),
                     FutureBuilder<PatrolLogLast10Response>(
