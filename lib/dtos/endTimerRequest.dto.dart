@@ -1,9 +1,7 @@
 class EndTimer {
-  String? email;
-  DateTime? time;
+  String? time;
 
   Map<String, dynamic> toJson() => {
-        'email': email,
         'EndedPatrolTime': time,
       };
 }
