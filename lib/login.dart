@@ -7,6 +7,7 @@ import 'package:shark_valley/services/initLog.service.dart';
 import 'package:shark_valley/services/login.service.dart';
 import 'package:shark_valley/signUpPage.dart';
 import 'package:shark_valley/vault.dart';
+import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -90,6 +91,11 @@ class _LoginPageState extends State<LoginPage> {
                             LoginRequest loginRequest = LoginRequest();
                             loginRequest.email = _usernameController.text;
                             loginRequest.password = _passwordController.text;
+
+                            final now = DateTime.now();
+                            String formatter =
+                                DateFormat('yyyy-MM-ddTHH:mm:ss').format(now);
+                            loginRequest.logInTime = formatter;
                             await login(loginRequest);
 
                             if (Vault.userId != null) {

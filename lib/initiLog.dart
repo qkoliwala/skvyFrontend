@@ -5,11 +5,14 @@ import 'package:http/http.dart'
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shark_valley/dtos/initLogRequest.dto.dart';
 import 'package:shark_valley/dtos/loginRequest.dto.dart';
 import 'package:shark_valley/dtos/loginResponse.dto.dart';
 import 'package:shark_valley/services/initLog.service.dart';
 import 'package:shark_valley/services/login.service.dart';
 import 'package:shark_valley/vault.dart';
+
+import 'package:intl/intl.dart';
 
 import '../vault.dart';
 
@@ -43,7 +46,13 @@ class _InitLog extends State<InitLog> {
             SizedBox(height: 50), // Add spacing
             ElevatedButton(
               onPressed: () async {
-                await initLog();
+                InitLogRequest initLogRequest = new InitLogRequest();
+                final now = DateTime.now();
+                String formatter =
+                    DateFormat('yyyy-MM-ddTHH:mm:ss').format(now);
+                initLogRequest.time = formatter;
+
+                await initLog(initLogRequest);
 
                 setState(() {
                   answer = "Yes";

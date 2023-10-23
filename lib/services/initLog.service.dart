@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:shark_valley/dtos/initLogRequest.dto.dart';
 import 'package:shark_valley/dtos/loginRequest.dto.dart';
 import 'package:shark_valley/dtos/loginResponse.dto.dart';
 import 'package:shark_valley/dtos/initLogResponse.dto.dart';
 
 import '../vault.dart';
 
-Future initLog() async {
+Future initLog(InitLogRequest initLogRequest) async {
   try {
     final response = await http.post(
       Uri.parse(Vault.initLogPath),
@@ -16,6 +17,7 @@ Future initLog() async {
         'x-api-key': Vault.apiKey,
         'clientId': Vault.userId ?? ''
       },
+      body: jsonEncode(initLogRequest.toJson()),
     );
     if (response.statusCode == 200) {
       // If the server did return a 201 CREATED response,
