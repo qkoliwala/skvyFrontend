@@ -47,7 +47,7 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
           onPressed: () {},
           icon: const Icon(Icons.info_outline),
         ),
-        title: const Text('Log Submitted'),
+        title: const Text('Patrol Log Manager'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           const Icon(Icons.group),
@@ -67,10 +67,9 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                 children: [
                   ...[
                     const ListTile(
-                      leading: Icon(Icons.emoji_emotions),
-                      title: Text('Log Submitted'),
-                      subtitle:
-                          Text('Your log have been submitted successfully'),
+                      leading: Icon(Icons.note),
+                      title: Text('Log History and Tasks'),
+                      subtitle: Text('Check logs, start/end/submit patrol'),
                     ),
                     FutureBuilder<InitLogResponse>(
                         future: intiLogs,
@@ -78,6 +77,12 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                           if (snapshot.hasData) {
                             var isCreator = snapshot.data!.isCreator;
                             var isCreated = snapshot.data!.isCreated!;
+
+                            var hasStartedPatrol =
+                                snapshot.data!.hasStartedPatrol!;
+                            var hasEndedPatrol = snapshot.data!.hasEndedPatrol!;
+
+                            print(hasEndedPatrol);
 
                             if (!isCreated) {
                               return Row(
@@ -98,76 +103,82 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                                   ),
                                 ],
                               );
+                            } else if (isCreated) {
+                              // adding visibility to buttons so they show based on criteria
+                              return Visibility(
+                                visible: true,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    if (!hasStartedPatrol)
+                                      Visibility(
+                                        visible: !startedPatrol,
+                                        child: TextButton(
+                                          child: const Text('Start Patrol'),
+                                          onPressed: () {
+                                            StartTimer startTimerRequest =
+                                                StartTimer();
+
+                                            final now = DateTime.now();
+                                            String formatter = DateFormat(
+                                                    'yyyy-MM-ddTHH:mm:ss')
+                                                .format(now);
+
+                                            startTimerRequest.time = formatter;
+
+                                            startTimer(startTimerRequest);
+
+                                            setState(() {
+                                              startedPatrol = true;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    if (hasStartedPatrol | startedPatrol)
+                                      Visibility(
+                                        visible: isCreator,
+                                        child: TextButton(
+                                          child: const Text('Submit Log'),
+                                          onPressed: () {
+                                            ref
+                                                .read(
+                                                    patrolLogProvider.notifier)
+                                                .reset();
+                                            context.go('/logTimesPage');
+                                          },
+                                        ),
+                                        //const SizedBox(width: 8),
+                                      ),
+                                    if ((hasStartedPatrol || startedPatrol) &&
+                                        !hasEndedPatrol)
+                                      Visibility(
+                                        visible: !endedPatrol,
+                                        child: TextButton(
+                                          child: const Text('End Patrol'),
+                                          onPressed: () {
+                                            EndTimer endTimerRequest =
+                                                EndTimer();
+
+                                            final now = DateTime.now();
+                                            String formatter = DateFormat(
+                                                    'yyyy-MM-ddTHH:mm:ss')
+                                                .format(now);
+
+                                            endTimerRequest.time = formatter;
+
+                                            endTimer(endTimerRequest);
+
+                                            setState(() {
+                                              endedPatrol = true;
+                                            });
+                                          },
+                                        ),
+                                        //const SizedBox(width: 8),
+                                      ),
+                                  ],
+                                ),
+                              );
                             }
-
-                            // adding visibility to buttons so they show based on criteria
-                            return Visibility(
-                              visible: isCreated,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Visibility(
-                                    visible: isCreator && startedPatrol,
-                                    child: TextButton(
-                                      child: const Text('Submit Log'),
-                                      onPressed: () {
-                                        ref
-                                            .read(patrolLogProvider.notifier)
-                                            .reset();
-                                        context.go('/logTimesPage');
-                                      },
-                                    ),
-                                    //const SizedBox(width: 8),
-                                  ),
-                                  Visibility(
-                                    visible: !startedPatrol,
-                                    child: TextButton(
-                                      child: const Text('Start Patrol'),
-                                      onPressed: () {
-                                        StartTimer startTimerRequest =
-                                            StartTimer();
-
-                                        final now = DateTime.now();
-                                        String formatter =
-                                            DateFormat('yyyy-MM-ddTHH:mm:ss')
-                                                .format(now);
-
-                                        startTimerRequest.time = formatter;
-
-                                        startTimer(startTimerRequest);
-
-                                        setState(() {
-                                          startedPatrol = true;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: startedPatrol && !endedPatrol,
-                                    child: TextButton(
-                                      child: const Text('End Patrol'),
-                                      onPressed: () {
-                                        EndTimer endTimerRequest = EndTimer();
-
-                                        final now = DateTime.now();
-                                        String formatter =
-                                            DateFormat('yyyy-MM-ddTHH:mm:ss')
-                                                .format(now);
-
-                                        endTimerRequest.time = formatter;
-
-                                        endTimer(endTimerRequest);
-
-                                        setState(() {
-                                          endedPatrol = true;
-                                        });
-                                      },
-                                    ),
-                                    //const SizedBox(width: 8),
-                                  ),
-                                ],
-                              ),
-                            );
                           } else if (snapshot.hasError) {
                             return Text('${snapshot.error}');
                           }

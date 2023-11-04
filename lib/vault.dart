@@ -19,9 +19,9 @@ class Vault {
 
   static const String apiKey = "73f158e8a5d9cdc79db9e667a203eedb";
   // url for testing
-  //static const String apiBase = "https://10.0.2.2:7132/api";
+  static const String apiBase = "https://10.0.2.2:7132/api";
   //hosting url
-  static const String apiBase = "http://44.204.110.3/api";
+  //static const String apiBase = "http://44.204.110.3/api";
   static const String identityPath = '$apiBase/identity/login';
   static const String patrolLogPath = '$apiBase/patrolLog';
   static const String patrolLogLast10Path = '$apiBase/patrolLog/last10';
