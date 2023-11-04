@@ -90,7 +90,7 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                                 children: <Widget>[
                                   Visibility(
                                     visible: true,
-                                    child: TextButton(
+                                    child: ElevatedButton(
                                       child: const Text('Create New Log'),
                                       onPressed: () {
                                         ref
@@ -113,7 +113,7 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                                     if (!hasStartedPatrol)
                                       Visibility(
                                         visible: !startedPatrol,
-                                        child: TextButton(
+                                        child: ElevatedButton(
                                           child: const Text('Start Patrol'),
                                           onPressed: () {
                                             StartTimer startTimerRequest =
@@ -134,10 +134,10 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                                           },
                                         ),
                                       ),
-                                    if (hasStartedPatrol | startedPatrol)
+                                    if (hasStartedPatrol || startedPatrol)
                                       Visibility(
                                         visible: isCreator,
-                                        child: TextButton(
+                                        child: ElevatedButton(
                                           child: const Text('Submit Log'),
                                           onPressed: () {
                                             ref
@@ -153,7 +153,7 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                                         !hasEndedPatrol)
                                       Visibility(
                                         visible: !endedPatrol,
-                                        child: TextButton(
+                                        child: ElevatedButton(
                                           child: const Text('End Patrol'),
                                           onPressed: () {
                                             EndTimer endTimerRequest =
