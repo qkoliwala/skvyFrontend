@@ -22,13 +22,11 @@ Future<LoginResponse?> login(LoginRequest requestDto) async {
       var loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
       Vault.userName = loginResponse.userName;
       Vault.userId = loginResponse.id;
+      Vault.email = loginResponse.email;
       return loginResponse;
     }
-  }catch(e){
-  }
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-   return null;
-
-
+  } catch (e) {}
+  // If the server did not return a 201 CREATED response,
+  // then throw an exception.
+  return null;
 }

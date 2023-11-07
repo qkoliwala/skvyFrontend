@@ -56,8 +56,7 @@ class WildLifePage extends ConsumerWidget {
         ),
 
         SizedBox(
-            height: 500, // Constrain height.
-
+          height: 450,
             child: Scrollbar(
               child: ListView.separated(
                 itemCount: sightControllers.length,

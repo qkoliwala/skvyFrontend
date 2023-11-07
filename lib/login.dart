@@ -3,9 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shark_valley/dtos/loginRequest.dto.dart';
 import 'package:shark_valley/dtos/loginResponse.dto.dart';
+import 'package:shark_valley/services/initLog.service.dart';
 import 'package:shark_valley/services/login.service.dart';
 import 'package:shark_valley/signUpPage.dart';
 import 'package:shark_valley/vault.dart';
+import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -89,9 +91,21 @@ class _LoginPageState extends State<LoginPage> {
                             LoginRequest loginRequest = LoginRequest();
                             loginRequest.email = _usernameController.text;
                             loginRequest.password = _passwordController.text;
+
+                            final now = DateTime.now();
+                            String formatter =
+                                DateFormat('yyyy-MM-ddTHH:mm:ss').format(now);
+                            loginRequest.logInTime = formatter;
                             await login(loginRequest);
+
                             if (Vault.userId != null) {
-                              context.go('/entryPage');
+                              // add initialized log here
+                              await getInitLog();
+
+                              if (Vault.isLogInitialized) {
+                                context.go('/completedFormPage');
+                              } else
+                                context.go('/createLog');
                             } else {
                               var snackbar = SnackBar(
                                 content: Text('Incorrect Email or Password'),

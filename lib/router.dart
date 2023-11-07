@@ -4,6 +4,7 @@ import 'package:shark_valley/completedForm.dart';
 import 'package:shark_valley/contactWithVisitor.dart';
 import 'package:shark_valley/entry_page.dart';
 import 'package:shark_valley/incidentsReportPage.dart';
+import 'package:shark_valley/logSubmitionConfirmation.dart';
 import 'package:shark_valley/logTimes.dart';
 import 'package:shark_valley/newIncident.dart';
 import 'package:shark_valley/normal_user.dart';
@@ -13,6 +14,7 @@ import 'package:shark_valley/signatures.dart';
 import 'package:shark_valley/suppliesExpended.dart';
 import 'package:shark_valley/weather.dart';
 import 'package:shark_valley/wildlife.dart';
+import 'package:shark_valley/initiLog.dart';
 
 import 'login.dart';
 import 'main.dart';
@@ -62,12 +64,12 @@ final routes = [
   CustomRoute(
     name: 'NewIncidentPage',
     path: 'newIncidentPage',
-    builder: (context) => const NewIncidentPage(),
+    builder: (context) => NewIncidentPage(),
   ),
   CustomRoute(
     name: 'SuppliesExpendedPage',
     path: 'suppliesExpendedPage',
-    builder: (context) => const SuppliesExpendedPage(),
+    builder: (context) => SuppliesExpendedPage(),
   ),
   CustomRoute(
     name: 'NewSupplyPage',
@@ -97,7 +99,7 @@ final routes = [
   CustomRoute(
     name: 'completedFormPage',
     path: 'completedFormPage',
-    builder: (context) => const CompletedFormPage(),
+    builder: (context) => CompletedFormPage(),
   ),
   CustomRoute(
     name: 'signUpPage',
@@ -110,9 +112,14 @@ final routes = [
     builder: (context) => const EntryPage(),
   ),
   CustomRoute(
-    name: 'normalUserPage',
-    path: 'normalUserPage',
-    builder: (context) => const NormalUserPage(),
+    name: 'createLog',
+    path: 'createLog',
+    builder: (context) => InitLog(),
+  ),
+  CustomRoute(
+    name: 'logConfirmation',
+    path: 'logConfirmation',
+    builder: (context) => LogConfirmation(),
   ),
 ];
 
