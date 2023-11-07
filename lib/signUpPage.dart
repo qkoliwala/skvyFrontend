@@ -19,6 +19,8 @@ class _SignUpPage extends State<SignUpPage> {
   final TextEditingController userName = TextEditingController();
   final TextEditingController password1 = TextEditingController();
   final TextEditingController password2 = TextEditingController();
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
 
   String incorrectPass = 'Password does not meet the requiremets!';
   String notMatchingPass = 'The passwords do not match!';
@@ -82,6 +84,70 @@ class _SignUpPage extends State<SignUpPage> {
     );
   }
 
+  TextField textField(TextEditingController text, String? hintText) {
+    return TextField(
+      controller: text,
+      style: const TextStyle(
+        fontSize: 16,
+      ),
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
+        hintText: hintText,
+        prefixIcon: const Icon(Icons.person),
+        prefixIconColor: Colors.black,
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.grey,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.grey,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+      ),
+    );
+  }
+
+  TextField passwordTestField(
+      TextEditingController text, String? hintText, String? helperText) {
+    return TextField(
+      controller: text,
+      obscureText: true,
+      style: const TextStyle(
+        fontSize: 16,
+      ),
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
+        hintText: hintText,
+        helperText: helperText,
+        helperMaxLines: 2,
+        helperStyle: const TextStyle(color: Colors.green),
+        prefixIcon: const Icon(Icons.password),
+        prefixIconColor: Colors.black,
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.grey,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.grey,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+      ),
+      keyboardType: TextInputType.visiblePassword,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,99 +178,36 @@ class _SignUpPage extends State<SignUpPage> {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: textField(firstName, 'First Name'),
+                  ),
+                  Expanded(
+                    child: textField(lastName, 'Last Name'),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
               // Username --------------------------------------------------
               padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: userName,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-                decoration: const InputDecoration(
-                  hintText: 'Enter username or email here',
-                  prefixIcon: Icon(Icons.person),
-                  prefixIconColor: Colors.black,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                ),
-              ),
+              child: textField(userName, 'Enter username or email here'),
             ),
             Padding(
               // First Password Input -----------------------------------
               padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: password1,
-                obscureText: true,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-                decoration: InputDecoration(
-                  hintText: 'Enter password here',
-                  helperText:
-                      'Password must be at least $minimalLength character long and have at least one of each (A-Z), (a-z), (0-9), and special characters!',
-                  helperMaxLines: 2,
-                  helperStyle: const TextStyle(color: Colors.green),
-                  prefixIcon: const Icon(Icons.password),
-                  prefixIconColor: Colors.black,
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                ),
-                keyboardType: TextInputType.visiblePassword,
+              child: passwordTestField(
+                password1,
+                'Enter password here',
+                'Password must be at least $minimalLength character long and have at least one of each (A-Z), (a-z), (0-9), and special characters!',
               ),
             ),
             Padding(
               // Second Password Input -----------------------------------
               padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: password2,
-                obscureText: true,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-                decoration: const InputDecoration(
-                  hintText: 'Renter password here',
-                  prefixIcon: Icon(Icons.password),
-                  prefixIconColor: Colors.black,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                ),
-                keyboardType: TextInputType.visiblePassword,
-              ),
+              child: passwordTestField(password2, 'Renter password here', ''),
             ),
             Padding(
               // Submit button here -------------------------------------
@@ -222,6 +225,8 @@ class _SignUpPage extends State<SignUpPage> {
                           .showSnackBar(errorMessage(notMatchingPass));
                     } else {
                       SignUpRequest signUpRequest = SignUpRequest();
+                      signUpRequest.firstName = firstName.text;
+                      signUpRequest.lastName = lastName.text;
                       signUpRequest.email = userName.text;
                       signUpRequest.password = password2.text;
                       await signUp(signUpRequest, context);
