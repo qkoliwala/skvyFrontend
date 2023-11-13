@@ -4,6 +4,7 @@ import 'package:shark_valley/completedForm.dart';
 import 'package:shark_valley/contactWithVisitor.dart';
 import 'package:shark_valley/entry_page.dart';
 import 'package:shark_valley/incidentsReportPage.dart';
+import 'package:shark_valley/logSubmitionConfirmation.dart';
 import 'package:shark_valley/logTimes.dart';
 import 'package:shark_valley/newIncident.dart';
 import 'package:shark_valley/normal_user.dart';
@@ -114,6 +115,11 @@ final routes = [
     name: 'createLog',
     path: 'createLog',
     builder: (context) => InitLog(),
+  ),
+  CustomRoute(
+    name: 'logConfirmation',
+    path: 'logConfirmation',
+    builder: (context) => LogConfirmation(),
   ),
 ];
 

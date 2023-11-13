@@ -76,7 +76,7 @@ class SignaturesPage extends ConsumerWidget {
                 pt.signatures = ref.watch(patrolLogProvider).signatures;
                 savePatrolLog(pt);
 
-                context.go('/completedFormPage');
+                context.go('/logConfirmation');
               } else {
                 var snackbar = SnackBar(
                   content: const Text('At least one signature is required'),
