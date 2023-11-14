@@ -16,6 +16,8 @@ import 'package:intl/intl.dart';
 
 import 'dtos/patrolLogLast10.dto.dart';
 
+enum MenuItem { item1 }
+
 class CompletedFormPage extends ConsumerStatefulWidget {
   const CompletedFormPage({super.key});
 
@@ -51,10 +53,19 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           const Icon(Icons.group),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert),
-          )
+          PopupMenuButton<MenuItem>(
+            onSelected: (value) {
+              if (value == MenuItem.item1) {
+                context.go('/loginPage');
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: MenuItem.item1,
+                child: Text("Sign Out"),
+              ),
+            ],
+          ),
         ],
       ),
       body: Form(
