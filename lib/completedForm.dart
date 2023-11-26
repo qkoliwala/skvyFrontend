@@ -29,6 +29,12 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
   late Future<PatrolLogLast10Response> patrolLogsResponse;
   late Future<InitLogResponse> intiLogs;
   final _formKey = GlobalKey<FormState>();
+  final _infoMessage =
+      "This page displays all the patrols you have submitted previously" +
+          " with the number of the patrol log, the day and the hour when" +
+          " it was sent.\n" +
+          "- User Logs - Shows the number of logs you submitted.\n" +
+          "- Total Logs - Shows the next Patrol Log number.";
 
   var startedPatrol = false;
   var endedPatrol = false;
@@ -41,18 +47,44 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
     intiLogs = getInitLog();
   }
 
+  SnackBar infoMessage(String str) {
+    return SnackBar(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      content: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(10),
+        height: 240,
+        decoration: const BoxDecoration(
+          color: Colors.grey,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        child: Text(str),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(infoMessage(_infoMessage));
+          },
           icon: const Icon(Icons.info_outline),
         ),
         title: const Text('Patrol Log Manager'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
-          const Icon(Icons.group),
+          IconButton(
+            onPressed: () {
+              context.go('/userInfo');
+            },
+            icon: Icon(Icons.group),
+          ),
           PopupMenuButton<MenuItem>(
             onSelected: (value) {
               if (value == MenuItem.item1) {
@@ -206,7 +238,7 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
                           return Column(children: [
                             const Divider(height: 2),
                             SizedBox(
-                                height: 500, // Constrain height.
+                                height: 450, // Constrain height.
                                 child: Scrollbar(
                                   child: ListView.separated(
                                     itemCount: patrolLogsResponse.length,

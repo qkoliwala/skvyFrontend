@@ -23,6 +23,8 @@ Future<LoginResponse?> login(LoginRequest requestDto) async {
       Vault.userName = loginResponse.userName;
       Vault.userId = loginResponse.id;
       Vault.email = loginResponse.email;
+      Vault.firstName = loginResponse.firstName;
+      Vault.lastName = loginResponse.lastName;
       return loginResponse;
     }
   } catch (e) {}

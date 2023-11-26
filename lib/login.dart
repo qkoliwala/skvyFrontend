@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    _usernameController.text = "aigle074@fiu.edu";
+    _usernameController.text = "";
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shark Valley Patrol Log'),
@@ -49,11 +49,8 @@ class _LoginPageState extends State<LoginPage> {
             child: AutofillGroup(
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.account_circle,
-                    color: Colors.grey,
-                    size: 180.0,
-                    semanticLabel: 'User Icon',
+                  const Image(
+                    image: AssetImage("${Vault.assetsImagePath}logo.png"),
                   ),
                   ...[
                     TextField(
@@ -61,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        hintText: 'user@fiu.edu',
+                        hintText: 'user@email.com',
                         labelText: 'Email',
                       ),
                       autofillHints: [AutofillHints.email],

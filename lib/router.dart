@@ -12,6 +12,7 @@ import 'package:shark_valley/notes.dart';
 import 'package:shark_valley/signUpPage.dart';
 import 'package:shark_valley/signatures.dart';
 import 'package:shark_valley/suppliesExpended.dart';
+import 'package:shark_valley/userInfo.dart';
 import 'package:shark_valley/weather.dart';
 import 'package:shark_valley/wildlife.dart';
 import 'package:shark_valley/initiLog.dart';
@@ -25,7 +26,6 @@ class CustomRoute {
   final String name;
   final String path;
   final WidgetBuilder builder;
-
   const CustomRoute(
       {required this.name, required this.path, required this.builder});
 }
@@ -120,6 +120,11 @@ final routes = [
     name: 'logConfirmation',
     path: 'logConfirmation',
     builder: (context) => LogConfirmation(),
+  ),
+  CustomRoute(
+    name: 'userInfo',
+    path: 'userInfo',
+    builder: (context) => const UserInfo(),
   ),
 ];
 
