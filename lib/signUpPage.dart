@@ -193,7 +193,7 @@ class _SignUpPage extends State<SignUpPage> {
             Padding(
               // Username --------------------------------------------------
               padding: const EdgeInsets.all(10),
-              child: textField(userName, 'Enter username or email here'),
+              child: textField(userName, 'Enter email here'),
             ),
             Padding(
               // First Password Input -----------------------------------
