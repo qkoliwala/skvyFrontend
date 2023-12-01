@@ -80,14 +80,15 @@ class _CompletedFormState extends ConsumerState<CompletedFormPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
-            onPressed: () {
-              context.go('/userInfo');
-            },
+            onPressed: () {},
             icon: Icon(Icons.group),
           ),
           PopupMenuButton<MenuItem>(
             onSelected: (value) {
               if (value == MenuItem.item1) {
+                Vault.email = "";
+                Vault.userId = "";
+                Vault.userName = "";
                 context.go('/loginPage');
               }
             },
