@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shark_valley/services/logProvider.dart';
 import 'package:shark_valley/services/patrolLog.service.dart';
-import 'package:shark_valley/vault.dart';
-
 import 'dtos/patrolTimeRequest.dto.dart';
-import 'models/incidentReportLog.dart';
-import 'models/supply.dart';
 
+/// This class stores and receives all the signitures for the users
+/// who have participated in the patrol log.
 class SignaturesPage extends ConsumerWidget {
   const SignaturesPage({super.key});
 

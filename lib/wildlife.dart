@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shark_valley/models/patrolLog.dart';
@@ -7,6 +6,8 @@ import 'package:shark_valley/models/wildLifeSight.dart';
 import 'package:shark_valley/services/logProvider.dart';
 import 'package:shark_valley/vault.dart';
 
+/// This class creates the page where all the animals will be displayed
+/// and the number of animal encounters will be recorded.
 class WildLifePage extends ConsumerWidget {
   const WildLifePage({super.key});
 

@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart'
     as http; // For making HTTP requests (make sure to add it to your pubspec.yaml)
 
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shark_valley/dtos/initLogRequest.dto.dart';
-import 'package:shark_valley/dtos/loginRequest.dto.dart';
-import 'package:shark_valley/dtos/loginResponse.dto.dart';
 import 'package:shark_valley/services/initLog.service.dart';
-import 'package:shark_valley/services/login.service.dart';
 import 'package:shark_valley/vault.dart';
 
 import 'package:intl/intl.dart';
 
-import '../vault.dart';
-
+/// This class initialises the creator of the patrol.
+/// There will be two options presented to the user,
+/// become the patrol creator or be part of the patrol.
+/// Once a member becomes the patrol leader, all the other
+/// members will be automatically assigned as members of the
+/// patrol and this page will not show up for them when
+/// entering the app.
 class InitLog extends StatefulWidget {
   @override
   _InitLog createState() => _InitLog();

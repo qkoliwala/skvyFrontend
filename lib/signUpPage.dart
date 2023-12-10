@@ -1,8 +1,9 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:shark_valley/dtos/signUpRequest.dto.dart';
 import 'package:shark_valley/services/signUpService.dart';
 
+/// This class sets up the sign up functionality of the
+/// sign up button featured in the log in page.
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -84,6 +85,9 @@ class _SignUpPage extends State<SignUpPage> {
     );
   }
 
+  /// Creates a textfield with a set of given parameters for
+  /// creating a text field for the entering a certain input and
+  /// avoiding the repetition of the same block of code.
   TextField textField(TextEditingController text, String? hintText) {
     return TextField(
       controller: text,
@@ -113,6 +117,9 @@ class _SignUpPage extends State<SignUpPage> {
     );
   }
 
+  /// Creates a textfield with a set of given parameters for
+  /// creating a text field for the entering the password and
+  /// avoiding the repetition of the same block of code.
   TextField passwordTestField(
       TextEditingController text, String? hintText, String? helperText) {
     return TextField(
@@ -214,6 +221,8 @@ class _SignUpPage extends State<SignUpPage> {
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
                 onPressed: () async {
+                  // Below we check if the password fits the requirements
+                  // that we have set to our program.
                   passwordIsCorrect(password1.text);
                   passwordsDoMatch(password1.text, password2.text);
                   if (!passwordsCompleteRequirements) {

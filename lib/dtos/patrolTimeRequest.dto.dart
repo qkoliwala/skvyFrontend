@@ -4,7 +4,6 @@ import '../models/patrolTimeLog.dart';
 import '../models/supply.dart';
 import '../models/weatherLog.dart';
 import '../models/wildLifeSight.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class PatrolTimeRequest {
