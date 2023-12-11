@@ -1,6 +1,6 @@
-# shark_valley
+# Shark Valley Patrol Log - Frontend Code
 
-A new Flutter project.
+A Flutter project.
 
 ## Getting Started
 
