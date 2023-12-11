@@ -7,7 +7,6 @@ import 'package:shark_valley/incidentsReportPage.dart';
 import 'package:shark_valley/logSubmitionConfirmation.dart';
 import 'package:shark_valley/logTimes.dart';
 import 'package:shark_valley/newIncident.dart';
-import 'package:shark_valley/normal_user.dart';
 import 'package:shark_valley/notes.dart';
 import 'package:shark_valley/signUpPage.dart';
 import 'package:shark_valley/signatures.dart';
@@ -21,15 +20,29 @@ import 'main.dart';
 import 'newSignature.dart';
 import 'newSupply.dart';
 
+/// This is one of the most important classes in this program,
+/// since it is used as the main rerouter of the current context
+/// of the program. Each time there is a need to progress from
+/// one page to the other, you can use the context.go("/path_to")
+/// method, which reports the current context, and tells the app to go
+/// to another context. If you need to add new pages to this app,
+/// you will need to update this router class to allow you to
+/// switch the context of the current page to the one you added,
+/// when you want it to change.
+///
+/// For more information about how the GoRouter works, check the
+/// documetation at: https://pub.dev/packages/go_router
 class CustomRoute {
   final String name;
   final String path;
   final WidgetBuilder builder;
-
   const CustomRoute(
       {required this.name, required this.path, required this.builder});
 }
 
+/// Whenever you want to add a new page/route, you need it to
+/// be added here, since the class uses the items in the list
+/// below to figure out what are the known routes.
 final routes = [
   CustomRoute(
     name: 'LoginPage',
@@ -123,6 +136,9 @@ final routes = [
   ),
 ];
 
+/// Whenever you are trying to change the current page and
+/// opening another page, this final constant will help you
+/// guide the context to where you want to go.
 final router = GoRouter(
   routes: [
     GoRoute(

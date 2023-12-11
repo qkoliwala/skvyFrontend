@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:shark_valley/models/patrolLog.dart';
 import 'package:shark_valley/models/patrolTimeLog.dart';
 import 'package:shark_valley/services/logProvider.dart';
 
+/// This class records the times that the user will approximately
+/// enter in the time pages, which then can be reported back in the
+/// back end for further analysis and information to the administration
+/// staff.
 class LogTimesPage extends ConsumerWidget {
   LogTimesPage({super.key});
 

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shark_valley/dtos/loginRequest.dto.dart';
 import 'package:shark_valley/dtos/loginResponse.dto.dart';
@@ -23,6 +22,8 @@ Future<LoginResponse?> login(LoginRequest requestDto) async {
       Vault.userName = loginResponse.userName;
       Vault.userId = loginResponse.id;
       Vault.email = loginResponse.email;
+      Vault.firstName = loginResponse.firstName;
+      Vault.lastName = loginResponse.lastName;
       return loginResponse;
     }
   } catch (e) {}

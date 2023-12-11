@@ -1,45 +1,39 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shark_valley/dtos/patrolTimeRequest.dto.dart';
 import 'package:shark_valley/services/logProvider.dart';
-import 'package:shark_valley/services/patrolLog.service.dart';
 
+/// This class stores the last page of the report, where
+/// the users have the opportunity to report further notes
+/// that they might have encountered during their patrols.
 class NotesPage extends ConsumerWidget {
-
- NotesPage({super.key});
-
+  NotesPage({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final _notesController = TextEditingController();
 
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String comments = ref.watch(patrolLogProvider).comments??'';
+    String comments = ref.watch(patrolLogProvider).comments ?? '';
     _notesController.text = comments;
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             context.go('/wildLifePage');
           },
           icon: const Icon(Icons.keyboard_backspace),
         ),
         title: const Text('Notes'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        actions:  [
+        actions: [
           const Icon(Icons.group),
           IconButton(
-            onPressed: (){},
+            onPressed: () {},
             icon: const Icon(Icons.more_vert),
           )
         ],
-
       ),
       body: Form(
         key: _formKey,
@@ -49,7 +43,6 @@ class NotesPage extends ConsumerWidget {
             child: AutofillGroup(
               child: Column(
                 children: [
-
                   ...[
                     SizedBox(
                       width: 400,
@@ -58,23 +51,24 @@ class NotesPage extends ConsumerWidget {
                         decoration: const InputDecoration(
                           hintText: 'Notes',
                           labelText: 'Notes',
-                          contentPadding:
-                          EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 40, horizontal: 20),
                           border: OutlineInputBorder(),
                         ),
                       ),
                     ),
+                    FilledButton(
+                        onPressed: () {
+                          String comments = _notesController.text;
+                          ref
+                              .read(patrolLogProvider.notifier)
+                              .setComments(comments);
 
-                    FilledButton(onPressed: (){
-                      String comments =_notesController.text;
-                      ref.read(patrolLogProvider.notifier).setComments(comments);
-
-
-
-                      context.go('/signaturesPage');}, child: const Text('Next'))
-
+                          context.go('/signaturesPage');
+                        },
+                        child: const Text('Next'))
                   ].expand(
-                        (widget) => [
+                    (widget) => [
                       widget,
                       const SizedBox(
                         height: 24,
@@ -90,5 +84,3 @@ class NotesPage extends ConsumerWidget {
     );
   }
 }
-
-

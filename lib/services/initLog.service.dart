@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shark_valley/dtos/initLogRequest.dto.dart';
-import 'package:shark_valley/dtos/loginRequest.dto.dart';
-import 'package:shark_valley/dtos/loginResponse.dto.dart';
 import 'package:shark_valley/dtos/initLogResponse.dto.dart';
 
 import '../vault.dart';

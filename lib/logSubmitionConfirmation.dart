@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'
     as http; // For making HTTP requests (make sure to add it to your pubspec.yaml)
-
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shark_valley/dtos/initLogRequest.dto.dart';
-import 'package:shark_valley/dtos/loginRequest.dto.dart';
-import 'package:shark_valley/dtos/loginResponse.dto.dart';
-import 'package:shark_valley/services/initLog.service.dart';
-import 'package:shark_valley/services/login.service.dart';
-import 'package:shark_valley/vault.dart';
 
-import 'package:intl/intl.dart';
-
-import '../vault.dart';
-
+/// Once you have submitted a patrol, the app will throw a confirmation
+/// page to ensure that the log has been updated in the backend, but also
+/// provide visual feedback to the user that their report has been recorded.
 class LogConfirmation extends StatefulWidget {
   @override
   _LogConfirmation createState() => _LogConfirmation();

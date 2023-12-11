@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shark_valley/dtos/loginRequest.dto.dart';
-import 'package:shark_valley/dtos/loginResponse.dto.dart';
 import 'package:shark_valley/services/initLog.service.dart';
 import 'package:shark_valley/services/login.service.dart';
-import 'package:shark_valley/signUpPage.dart';
 import 'package:shark_valley/vault.dart';
 import 'package:intl/intl.dart';
 
+/// This class implements the log in page that allows the
+/// user to enter their details and log into the app. The
+/// user will be presented with two boxes to enter the email
+/// and the password combination, and two buttons, one for
+/// confirming your credentials and logging in, and the other
+/// called Sign Up, to go and create a new account if the user
+/// does not have one.
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -22,12 +26,14 @@ class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  /// Toggle the visibility of the password in the log in page.
   void _toggleVisibility() {
     setState(() {
       _passwordVisible = !_passwordVisible;
     });
   }
 
+  /// Initialise the password to be non-visible.
   @override
   void initState() {
     super.initState();
@@ -36,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    _usernameController.text = "aigle074@fiu.edu";
+    _usernameController.text = "";
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shark Valley Patrol Log'),
@@ -49,11 +55,8 @@ class _LoginPageState extends State<LoginPage> {
             child: AutofillGroup(
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.account_circle,
-                    color: Colors.grey,
-                    size: 180.0,
-                    semanticLabel: 'User Icon',
+                  const Image(
+                    image: AssetImage("${Vault.assetsImagePath}logo.png"),
                   ),
                   ...[
                     TextField(
@@ -61,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        hintText: 'user@fiu.edu',
+                        hintText: 'user@email.com',
                         labelText: 'Email',
                       ),
                       autofillHints: [AutofillHints.email],
